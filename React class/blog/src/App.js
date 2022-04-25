@@ -2,8 +2,14 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  let [postArr, setPostArr] = useState([["다 프로젝트", 0], ["나 프로젝트", 0], ["가 프로젝트", 0]]);
+  let [postArr, setPostArr] = useState([
+    ["다 프로젝트", 0],
+    ["나 프로젝트", 0],
+    ["가 프로젝트", 0],
+  ]);
   let [isShowModal, setIsShowModal] = useState(false);
+  let [selectedIndex, setSelectedIndex] = useState(-1);
+  let [newTitle, setNewTitle] = useState("");
 
   function changePostArr() {
     let newTitle = [...postArr];
@@ -19,18 +25,42 @@ function App() {
     setPostArr(newTitle);
   }
 
-  function showModal() {
-    if (isShowModal === true) {
-      setIsShowModal(false);
-    } else {
+  function showModal(index) {
+    if (index !== selectedIndex || isShowModal === false) {
       setIsShowModal(true);
+    } else {
+      setIsShowModal(false);
     }
+
+    setSelectedIndex(index);
   }
 
   function plusGoodCount(index) {
-    let newContentArr = [...postArr];
-    newContentArr[index][1] += 1;
-    setPostArr(newContentArr)
+    let newPostArr = [...postArr];
+    newPostArr[index][1] += 1;
+    setPostArr(newPostArr);
+  }
+
+  function changePostTitle(index) {
+    let newPostArr = [...postArr];
+    newPostArr[index][0] = index + "글 수정됨";
+    setPostArr(newPostArr);
+  }
+
+  function onChangeNewTitle(e) {
+    setNewTitle(e.target.value);
+  }
+
+  function addPost() {
+    let newPostArr = [[newTitle, 0], ...postArr];
+    setPostArr(newPostArr);
+    setNewTitle("");
+  }
+
+  function removePost(index) {
+    let newPostArr = [...postArr];
+    newPostArr.splice(index, 1);
+    setPostArr(newPostArr);
   }
 
   return (
@@ -44,21 +74,34 @@ function App() {
       {postArr.map(function (post, index) {
         return (
           <div className="list" key={index}>
-            <h4
+            <span className="title"
               onClick={() => {
-                showModal(true);
+                showModal(index);
               }}
             >
               {post[0]}
+              </span>
+
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  //e.stopPropagation(); // 이벤트 버블링 중지
                   plusGoodCount(index);
                 }}
               >
                 👍
               </span>
+              
               {post[1]}
-            </h4>
+
+              <button
+                className="remove-btn"
+                onClick={() => {
+                  removePost(index);
+                }}
+              >
+                삭제
+              </button>
+
             <p>2월 17일 발행</p>
           </div>
         );
@@ -87,7 +130,18 @@ function App() {
       */}
       </>
 
-      {isShowModal === true ? <Modal color="whitesmoke" background={'gray'} title={postArr}/> : null}
+      {isShowModal === true ? <Modal color="whitesmoke" background={"gray"} post={postArr[selectedIndex]} postIndex={selectedIndex} changePostTitle={changePostTitle} /> : null}
+
+      <div>
+        <input
+          placeholder="New Post Title"
+          value={newTitle}
+          onChange={onChangeNewTitle}
+        />{" "}
+        <button onClick={addPost}>
+          추가
+        </button>
+      </div>
     </div>
   );
 }
@@ -96,10 +150,16 @@ function App() {
 function Modal(props) {
   return (
     <div className="modal" style={{ background: props.background, color: props.color }}>
-      <h4>{props.title}</h4>
+      <h4>{props.post[0]}</h4>
       <p>date</p>
       <p>content</p>
-      <button>글수정</button>
+      <button
+        onClick={() => {
+          props.changePostTitle(props.postIndex);
+        }}
+      >
+        글수정
+      </button>
     </div>
   );
 }

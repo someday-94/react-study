@@ -29,6 +29,14 @@ body {
   padding-right: 20px;
 }
 
+.title {
+  font-weight: 900;
+}
+
+.remove-btn {
+  float: right;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

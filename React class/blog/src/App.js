@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   let [postArr, setPostArr] = useState([
@@ -52,6 +52,11 @@ function App() {
   }
 
   function addPost() {
+    // let copy = [...postArr];
+    // copy.unshift(newTitle); // unshift 맨 앞에 추가함.
+    // setPostArr(copy);
+    // setNewTitle("");
+
     let newPostArr = [[newTitle, 0], ...postArr];
     setPostArr(newPostArr);
     setNewTitle("");
@@ -90,7 +95,7 @@ function App() {
               >
                 👍
               </span>
-              
+
               {post[1]}
 
               <button
@@ -108,7 +113,7 @@ function App() {
       })}
 
       <>
-        {/* 
+        {/*
       {titleArr.map(function (title, index) {
         return (
           <div className="list">
@@ -126,7 +131,7 @@ function App() {
             <p>2월 17일 발행</p>
           </div>
           );
-        })} 
+        })}
       */}
       </>
 
@@ -142,6 +147,8 @@ function App() {
           추가
         </button>
       </div>
+
+       <Profile />{/*옛날 방식 */}
     </div>
   );
 }
@@ -176,3 +183,35 @@ const Modal2 = () => {
 };
 
 export default App;
+
+
+
+// 옛날 방식
+class Profile extends React.Component {
+  constructor() {
+    super();
+    this.state = { name: "Kim", age: 30 };
+  }
+
+  changeName = () => {
+    this.setState({ name: "Park" });
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>프로필</h3>
+        <p>My name is {this.state.name}.</p>
+        <button
+          onClick={() => {
+            // name을 아예 대체하는것이 아니라 변경하는 것이다.
+            this.setState({ name: "Park" });
+          }}
+        >
+          change
+        </button>
+        <button onClick={this.changeName}>change</button>
+      </div>
+    );
+  }
+}

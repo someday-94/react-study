@@ -1,10 +1,15 @@
 import "./App.css";
-import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Container, Nav, Navbar, NavDropdown, Button, Row, Col } from "react-bootstrap";
 import s1 from "./s1.png";
 import s2 from "./s2.png";
 import s3 from "./s3.png";
+import datas from "./data";
 
 function App() {
+
+  let [data, setData] = useState(datas);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -35,25 +40,26 @@ function App() {
         </p>
       </div>
 
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">
+      <Container>
+        <Row>
+          <Col md={4}>
             <img src={s1} alt="s1" width="100%" />
             <h4>Standard-1</h4>
-            <p>L09X8D0520_20211027182647_PP_Type3_Preset3_HEIndex0.50_CERate0.30_Gamma0.68</p>
-          </div>
-          <div className="col-md-4">
+            <p>HEIndex0.50</p>
+          </Col>
+          <Col  md={4}>
             <img src={s2} alt="s2" width="100%" />
             <h4>Standard-2</h4>
-            <p>L09X8D0520_20211027182647_PP_Type3_Preset3_HEIndex0.50_CERate0.30_Gamma0.68</p>
-          </div>
-          <div className="col-md-4">
+            <p>CERate0.30</p>
+          </Col>
+          <Col  md={4}>
             <img src={s3} alt="s3" width="100%" />
             <h4>Standard-3</h4>
-            <p>L09X8D0520_20211027182647_PP_Type3_Preset3_HEIndex0.50_CERate0.30_Gamma0.68</p>
-          </div>
-        </div>
-      </div>
+            <p>Gamma0.68</p>
+          </Col>
+        </Row>
+      </Container>
+
     </div>
   );
 }

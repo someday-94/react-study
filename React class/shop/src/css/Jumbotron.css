@@ -1,0 +1,9 @@
+.jumbotron {
+    background-image: url('../img/react-bootstrap-logo.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 60%;
+    background-color: #282c34;
+    color: #fff;
+    padding: 30px;
+  }

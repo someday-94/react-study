@@ -3,19 +3,19 @@ const sample = [
     id: 0,
     title: "Standard-1",
     content: "HEIndex0.50",
-    price: 120000,
+    price: null,
   },
   {
     id: 1,
     title: "Standard-2",
     content: "CERate0.30",
-    price: 110000,
+    price: null,
   },
   {
     id: 2,
     title: "Standard-3",
     content: "Gamma0.68",
-    price: 130000,
+    price: null,
   },
 ];
 
